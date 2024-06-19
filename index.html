@@ -1,0 +1,139 @@
+<style>
+    .app-container {
+        width: 370px;
+
+    }
+
+    .calculator{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border: 1px solid black;
+    }
+
+    .display {
+        grid-column-start: 1;
+        grid-column-end: 5;
+        text-align: end;
+        font-size: 40px;
+        border: 1px solid black;
+        padding-right: 10px;
+        padding-top: 5px;
+        height: 50px;
+       
+    }
+
+    button {
+        height: 50px;
+        background-color: white;
+        border: 1px solid black;
+      
+    }
+
+    button.operator {
+        background-color: darkgray;
+
+    }
+</style>
+
+
+
+<div id="app"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    // const hello = React.createElement('hi', {},  ' Hello React!');
+    //const hello = (
+    //<div> 
+    //<h1>Hello React! 123</h1>
+    //<a href="#">sample</a>
+    //</div>
+
+    //const Kezia = (props) => (
+    //<div>
+    //<h2>Hello, my name is {props.name}  I am Age {props.age}</h2>
+    // <p>Lorem ipsum dolor sit.</p>
+    //<a href="http://" target="_blank" rel="noopener
+    // noreferrer">Sample Link</a>
+    //</div>
+    //);
+    //ReactDOM.render(<Kezia name="kezia" age={"22"}/>, document.getElementById("app"));
+
+    //React callback function
+
+
+   //parent component
+    function Calculator() 
+    {
+
+        // for the onClick event
+
+        function handleNumber(value) {
+            // alert(value);
+
+            let newNum = value;
+            if(!calc.insInitial){
+        newNum = calc.current + value;
+            }
+         setCalc({current: newNum, insInitial: false});
+       }
+    //handle clear button
+    function handleClear(){
+        setCalc({current: '0', insInitial: true});
+    }
+
+
+        //const [display, setDisplay] = REact.useState('0');
+
+        // useState
+        const [calc, setCalc] = React.useState({
+            current: '0',
+            total: '',
+            insInitial: true,
+            preOp: ''
+        });
+
+
+        return (
+            <div className="Calculator">
+                <div className="display">{calc.current}</div>
+
+                <CalcButton value='7' onClick={handleNumber} />
+                <CalcButton value='8' onClick={handleNumber} />
+                <CalcButton value='9' onClick={handleNumber} />
+                <CalcButton className="operator" value="+" />
+
+
+                <CalcButton value='4' onClick={handleNumber} />
+                <CalcButton value='5' onClick={handleNumber} />
+                <CalcButton value='6' onClick={handleNumber} />
+                <CalcButton className="operator" value="-" />
+
+
+                <CalcButton value='1' onClick={handleNumber} />
+                <CalcButton value='2' onClick={handleNumber} />
+                <CalcButton value='3' onClick={handleNumber} />
+                <CalcButton className="operator" value="*" />
+
+
+                <CalcButton value="C" onClick={handleClear}/>
+                <CalcButton value='0' onClick={handleNumber} />
+                <CalcButton className="operator" value="=" />
+                <CalcButton className="operator" value="/" />
+
+            </div>
+        )
+    }
+
+    //Child Component
+    function CalcButton(props) {
+        return (
+            <button className={props.className} onClick={() => props.onClick(props.value)}>{props.value}</button>
+        );
+
+    }
+    ReactDOM.render(<div className="app-container"><Calculator /></div>, document.getElementById("app"));
+</script>
+
